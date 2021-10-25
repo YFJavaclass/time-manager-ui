@@ -1,13 +1,23 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
-        <div class="card-panel-icon-wrapper icon-people">
+      <div class="card-panel" @click="handleSetLineChartData('start')">
+        <div class="card-panel-icon-wrapper icon-start-time">
           <svg-icon icon-class="time" class-name="card-panel-icon" />
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
             新建事件
+          </div>
+        </div>
+      </div>
+      <div class="card-panel" @click="handleSetLineChartData('end')">
+        <div class="card-panel-icon-wrapper icon-end-time">
+          <svg-icon icon-class="time-range" class-name="card-panel-icon" />
+        </div>
+        <div class="card-panel-description">
+          <div class="card-panel-text">
+            结束事件
           </div>
         </div>
       </div>
@@ -54,7 +64,7 @@ export default {
         color: #fff;
       }
 
-      .icon-people {
+      .icon-start-time {
         background: #40c9c6;
       }
 
@@ -65,14 +75,20 @@ export default {
       .icon-money {
         background: #f4516c;
       }
+      .icon-end-time {
+        background: #f4516c;
+      }
 
       .icon-shopping {
         background: #34bfa3
       }
     }
 
-    .icon-people {
-      color: #40c9c6;
+    .icon-start-time {
+      color: #34bfa3;
+    }
+    .icon-end-time {
+      color: #c94060;
     }
 
     .icon-message {

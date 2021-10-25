@@ -94,7 +94,7 @@
           <span v-html="scope.row.timeContent"></span>
         </template>
       </el-table-column>
-      <el-table-column label="内容类型" align="center" prop="typeId" />
+      <el-table-column label="内容类型" align="center" prop="type.typeName" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-import { listTime_data, getTime_data, delTime_data, addTime_data, updateTime_data, exportTime_data } from "@/api/time/time_data";
+import { listTime_data, getTime_data, delTime_data, addTime_data, updateTime_data, exportTime_data, getEndTimeIsNull } from "@/api/time/time_data";
 import {treeselect} from "@/api/system/type";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
@@ -208,8 +208,32 @@ export default {
   created() {
     this.getList();
     this.getTreeselect();
+    this.getIsEnd();
   },
   methods: {
+    /** 查詢事件是否結束 */
+    getIsEnd(){
+      let _this = this;
+      getEndTimeIsNull().then(response=>{
+        if(response.data!=undefined){
+          _this.$confirm('您有一条数据还没有结束"' , "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(function() {
+            _this.reset();
+            getTime_data(response.data.id).then(response => {
+              _this.form = response.data;
+              _this.open = true;
+              _this.title = "修改数据列表";
+            });
+          }).catch(() => {
+            _this.open = false;
+          });
+
+        }
+      });
+    },
     /** 查询类型下拉树结构 */
     getTreeselect() {
       treeselect().then(response => {
@@ -260,6 +284,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.getIsEnd();
       this.open = true;
       this.title = "添加数据列表";
     },

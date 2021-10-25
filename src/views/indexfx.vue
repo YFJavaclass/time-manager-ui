@@ -25,7 +25,7 @@
       </el-col>
     </el-row>
 
-    
+
   </div>
 </template>
 
@@ -56,7 +56,7 @@ const lineChartData = {
 }
 
 export default {
-  name: 'Index',
+  name: '',
   components: {
     PanelGroup,
     LineChart,

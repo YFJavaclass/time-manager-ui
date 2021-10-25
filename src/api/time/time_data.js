@@ -51,3 +51,12 @@ export function exportTime_data(query) {
     params: query
   })
 }
+
+// 查询结束时间是否为null
+export function getEndTimeIsNull() {
+  return request({
+    url: '/time/time_data/getEndTimeIsNull',
+    method: 'get'
+  })
+}
+
